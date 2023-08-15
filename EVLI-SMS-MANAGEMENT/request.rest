@@ -1,0 +1,484 @@
+// Create a user
+POST http://localhost:5001/users
+Content-Type:  application/json
+
+{
+    "name": "Administrator",
+    "username": "Administrator",
+    "password": "admin",
+    "role": "admin"
+}
+
+
+
+###
+// get All Users
+POST http://localhost:5000/expensesbetweeen
+Content-Type:  application/json
+
+{
+    "startDate": "2020-05-24 09:40:49",
+    "endDate": "2023-05-24 09:40:49"
+}
+
+###
+// get Single user
+
+GET http://localhost:5000/users/cbe6159e-d45e-406b-8a36-2a9e6c744ec0
+
+###
+// Update Users
+PATCH http://localhost:5000/users/0f2f42d3-269e-453a-b023-40d434cc0f24
+Content-Type:  application/json
+
+{
+    "name": "Menou SOLANGNONN",
+    "username": "EVLISOLANGNON",
+    "password": "123",
+    "role": "user"
+}
+
+###
+// delete Single user
+DELETE http://localhost:5000/users/1e43102c-62d6-4591-a0db-060e5525d4c0
+
+###
+// Login user
+POST http://localhost:5000/login
+Content-Type:  application/json
+
+{
+    "username": "super",
+    "password": "super"
+}
+
+### 
+// Session open
+GET http://localhost:5000/me
+
+### 
+// LogOut
+DELETE  http://localhost:5000/logout
+
+###
+// get All Students
+GET http://localhost:5000/students
+
+###
+
+// Create a Student
+POST http://localhost:5000/students
+Content-Type:  multipart/form-data; boundary=<calculated when request is sent>
+Accept-Encoding: gzip, deflate, br
+connection: keep-alive
+Cookie: connect.sid=s%3AT1n2rF0eCyGYsjiq6O9srVlCjG5PRHSl.J2%2BLNMqkZn0WNrP%2FUHOubTTaD7rSG1W9rm7nvG%2Bw%2FWg
+
+{
+    "surnameg": "Menou Gael",
+    "forenamesg": "EVLIMARIO",
+    "about_aboutid": 1,
+}
+
+###
+//Get All About
+
+GET http://localhost:5000/abouts
+
+
+###
+//Create About
+
+POST http://localhost:5000/about
+Content-Type:  application/json
+
+{
+    "aboutname": "Instagram"
+}
+
+
+###
+//Get All Course
+ 
+GET http://localhost:5000/course
+
+
+###
+//Create a Course
+
+POST http://localhost:5000/course
+Content-Type:  application/json
+
+{
+    "coursename": "Executive English"
+}
+
+###
+//Get All Subcourse
+
+GET http://localhost:5000/subcourse
+
+
+###
+//Create a SubCourse
+
+POST http://localhost:5000/subcourse
+Content-Type:  application/json
+
+{
+    "subcoursename": "TOELF"
+}
+
+
+###
+//Get All Languages
+
+GET http://localhost:5000/language
+
+
+###
+//Create Language
+POST http://localhost:5000/language
+Content-Type:  application/json
+
+{
+    "languagename": "English"
+}
+
+###
+//Get All PriceType
+
+GET http://localhost:5000/pricetype
+
+
+###
+//Create PriceTYpe
+POST http://localhost:5000/pricetype
+Content-Type:  application/json
+
+{
+    "pricetypename": "Full"
+}
+
+
+###
+//Get All ClassType
+
+GET http://localhost:5000/classtype
+
+
+###
+//Create Class Type
+POST http://localhost:5000/classtype
+Content-Type:  application/json
+
+{
+    "classtypename": "Group"
+}
+
+
+###
+//Get All GETCOURSEWITHSUBCOURSE
+
+POST http://localhost:5000/getsubcourse
+Content-Type:  application/json
+
+{
+    "courseid": 1
+}
+
+
+
+###
+//Get All COURSESPRICE
+
+POST http://localhost:5000/getcoursesprice
+Content-Type:  application/json
+
+{
+    "courseid": 4,
+    "subcourseid": null,
+    "duration": 2
+}
+
+###
+//Get All Courses
+
+GET http://localhost:5000/courses
+Content-Type:  application/json
+
+{
+    "classtype" : 1,
+    "language": 1,
+    "active": true
+}
+
+
+###
+//Get SubCourses By Courses Id
+
+GET http://localhost:5000/courses/2
+
+
+###
+//Update Courses By Courses Id
+
+PATCH http://localhost:5000/coursesprice/7
+
+
+{
+    "courseid" : 1,
+    "coursename": "General Englishh",
+    "subcourseid": 1,
+    "subcoursename": "Intensivee",
+    "active": false,
+    "language_languageid": 1,
+    "pricetype_pricetypeid": 1,
+    "classtype_classtypeid": 2,
+    "description": "desciptionn",
+    "fullprice": 0,
+    "fullduration": 2,
+    "times": [
+        {"time":"1"},
+        {"time":"2"}
+    ],
+    "prices": [922,9222]
+}
+
+
+###
+//Create Courses
+
+POST http://localhost:5000/courses
+Content-Type:  application/json
+
+{
+    "coursename": "General English",
+    "subcoursename": "Intensive",
+    "active": false,
+    "language_languageid": 1,
+    "pricetype_pricetypeid": 1,
+    "classtype_classtypeid": 2,
+    "description": "desciption",
+    "fullprice": 0,
+    "times": [
+        {"time":"1"},
+        {"time":"2"},
+        {"time":"3"}
+    ],
+    "prices": [1,2,3]
+}
+
+
+###
+//Delete Courses ByUUID 
+
+DELETE  http://localhost:5000/courses/ff8da0f8-a9f9-43ea-90d7-dd5e97fbf01a
+
+
+
+###
+//Get All Times
+
+GET http://localhost:5000/course
+
+
+###
+//Create Time
+POST http://localhost:5001/timee
+Content-Type:  application/json
+
+{
+    "time": 3
+}
+
+###
+//Create Time
+POST http://localhost:5000/time
+Content-Type:  application/json
+
+{
+    "number": 1
+}
+
+
+
+###
+//Get All Prices
+
+GET http://localhost:5000/prospects/09452d1a-4531-49b9-8235-bcecd50af53f
+
+###
+
+###
+//Get Prices By Id
+POST http://localhost:5000/coursesprice
+Content-Type:  application/json
+
+{
+    "course_courseid": 1,
+    "subcourse_subcourseid": null,
+    "times_timesid": 1
+}
+###
+//Create Prices
+
+POST http://localhost:5000/prices
+Content-Type:  application/json
+
+{
+    "courses_coursesid": "2",
+    "times_timesid": "1",
+    "price": 1000
+}
+
+
+###
+//Create Other Fee
+
+POST http://localhost:5000/otherfee
+Content-Type:  application/json
+
+{
+    "feename": "Pickup Service",
+    "feeprice": 15000,
+    "description": "Pickup Service"
+}
+
+
+###
+//Get All StudentsCourses
+
+GET http://localhost:5000/studentscourses
+
+
+###
+//Create StudentsCourses
+POST http://localhost:5000/studentscourses
+Content-Type:  application/json
+
+{
+    "courses_coursesid": 1,
+    "students_studentsid": 1,
+    "startdate": "2022-01-17",
+    "enddate": "2022-01-17",
+    "enrollementdate": "2022-01-17",
+    "total": 12000,
+    "duration": 3
+}
+
+
+###
+//Get All Purchase
+
+GET http://localhost:5000/purchase
+
+
+###
+//Create a SubCourse
+
+POST http://localhost:5000/purchase
+Content-Type:  application/json
+
+{
+    "purchasename": "Book",
+    "purchaseprice": 12000
+}
+
+
+###
+//Get All Exams
+
+GET http://localhost:5000/exam
+
+
+###
+//Create a Exam
+
+POST http://localhost:5000/exam
+Content-Type:  application/json
+
+{
+    "examname": "APTIS",
+    "examprice": 30000
+}
+
+###
+//Get All Accomodation
+
+GET http://localhost:5000/accomodation
+
+
+###
+//Create an Accomodation
+
+POST http://localhost:5000/accomodation
+Content-Type:  application/json
+
+{
+    "accomodationname": "Blue Hostel (Single)",
+    "accomodationprice": 70000
+}
+
+###
+//Get All Students Accomodation
+
+GET http://localhost:5000/studentsaccomodations
+
+
+###
+//Create an Stuedents Accomodation
+
+POST http://localhost:5000/studentsaccomodations
+Content-Type:  application/json
+
+{
+    "students_stuid": "1",
+    "accos_accosid": 1,
+    "total": 12000
+}
+
+
+###
+//Get All Students Purchases
+
+GET http://localhost:5000/studentspurchases
+
+
+###
+//Create an Stuedents Purchases
+
+POST http://localhost:5000/studentspurchases
+Content-Type:  application/json
+
+{
+    "students_stuid": "1",
+    "purchases_purid": 1,
+    "total": 12000
+}
+
+
+
+###
+//Get All Students Exams
+
+GET http://localhost:5000/studentsexams
+
+
+###
+//Create an Stuedents Exams
+
+POST http://localhost:5000/studentsexams
+Content-Type:  application/json
+
+{
+    "students_stuid": "1",
+    "exams_examsid": 1,
+    "total": 12000
+}
+
+
+
+
+
+
+
