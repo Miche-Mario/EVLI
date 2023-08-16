@@ -106,6 +106,9 @@ const Options = () => {
     setOpen1Cu(false);
   };
 
+
+  
+
 ////////////////////////  ABOUT  ///////////////////////////////////////////////////////////////////////
 
 const [abouts, setAbouts] = useState([]);
@@ -161,6 +164,25 @@ const handleOpen1Ab = (uuid) => {
 };
 const handleClose1Ab = () => {
   setOpen1Ab(false);
+};
+///////////////////////////////////////////////////////////
+const [openAbb, setOpenAbb] = useState(false);
+const handleOpenAbb = () => {
+  setOpenAbb(true);
+};
+const handleCloseAbb = () => {
+  setOpenAbb(false);
+};
+
+const [open1Abb, setOpen1Abb] = useState(false);
+const [vaAbb, setVaAbb] = useState("");
+
+const handleOpen1Abb = (uuid) => {
+  setOpen1Abb(true);
+  setVaAbb(uuid)
+};
+const handleClose1Abb = () => {
+  setOpen1Abb(false);
 };
 
 
@@ -317,8 +339,17 @@ const handleClose1Ab = () => {
         </div>
       </div>
         </div>
-   {/* //  ////////////////////////////////////////////////ABOUT MODAL/////////////////////////////////////////////////////////////////////// */}
-   <Modal
+{/*         //////////////////////////////////////////////////////////////////////////////////////////////////////*/} 
+
+
+
+
+
+
+
+
+
+<Modal
         open={openAb}
         onClose={handleCloseAb}
         aria-labelledby="modal-modal-title"
@@ -427,6 +458,147 @@ const handleClose1Ab = () => {
                             <button
                               className='flex items-center p-1 bg-red text-white text-[1rem]'
                                 onClick={() => handleOpen1Ab(about.uuid)}
+                            >
+                              <MdDeleteSweep size={20} />Delete
+                            </button>
+                          </div>
+                        </div>
+                  </td>
+                </tr>))}
+              </tbody>
+            </table>
+          </div>
+          <div className='m-6 flex justify-end'>       
+          </div>
+        </div>
+      </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {/* //  ////////////////////////////////////////////////ABOUT MODAL/////////////////////////////////////////////////////////////////////// */}
+   <Modal
+        open={openAb}
+        onClose={handleCloseAbb}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} >
+          <p class="text-white text-xl p-3  bg-dark-purple w-full">SURVEY DETAILS</p>
+          <form onSubmit={saveAbout}>
+            <div className='flex flex-row m-3 justify-around items-center'>
+              <div className=''>
+                <label for="languagename" class="block mb-6 text-base font-medium text-gray-900 p-1">Survey Title</label>           
+              </div>
+              <div >
+              <input type="text" id="languagename" class="bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5 " 
+                placeholder="name" 
+                value={aboutname}
+                onChange={(e) => setAboutname(e.target.value)}  
+              />
+             
+              </div>
+            </div>
+            <p className='text-sm text-center text-red'>{msg}</p>
+            <div className='flex flex-row justify-around  mt-3 mb-3'>
+              <button className='bg-blue-600 rounded text-gray-100 font-medium w-20 h-10 flex items-center justify-center' type="submit">
+                Save
+              </button>
+              <button onClick={handleCloseAbb} className='bg-blue-600 rounded text-gray-100 font-medium w-20 h-10 flex items-center justify-center'>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </Box>
+
+
+      </Modal>
+
+      
+      <Modal
+        open={open1Ab}
+        onClose={handleClose1Abb}
+      >
+        <Box sx={style}>
+          <div className='items-center p-3 '>
+            <div className='text-center text-xl font-medium'>Would you really delete ?</div>
+            <div className='flex items-center justify-center mt-3 mb-3'>
+              <button className='bg-blue-600 rounded text-gray-100 ml-5 font-medium w-20 h-10 flex items-center justify-center'
+                onClick={() => deleteAbout(vaAbb)}
+              >
+                Delete
+              </button>
+              <button onClick={handleClose1Abb} className='bg-blue-600 rounded ml-5 text-gray-100 font-medium w-20 h-10 flex items-center justify-center'>
+                Cancel
+              </button>
+            </div>
+          </div>
+
+        </Box>
+      </Modal>
+      <div className='w-5/12 h-4/12 ml-3 shadow-xl p-3'>
+        <div className='m-3'>
+        <div>
+          <legend className='p-1 ml-3 text-xl text-blue-700'>Survey</legend>
+            <div className='flex'>
+            <button onClick={handleOpenAbb} className='bg-blue-600 rounded ml-3 text-gray-100 font-medium w-48 h-10 p-3 flex items-center justify-center' type="submit" name='Add'>
+              Add
+            </button>
+          </div>
+          <div className='m-3 mb-0 '>
+            <table className="w-[40rem]">
+              <thead>
+                <tr className=" border border-dark-purple bg-gray-200  text-gray-600 uppercase text-sm leading-normal">
+                  <th className=" border border-dark-purple py-3 px-3 text-center">N</th>
+                  <th className=" border border-dark-purple py-3 px-3 text-center">Survey name</th>
+                  <th className=" border border-dark-purple py-3 px-3 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600  text-sm font-light">
+                {abouts.map((about, index) => ( 
+                <tr key={currency.uuid} className=" border-gray-400  hover:bg-gray-100 border-b-2">
+                  <td className="p-0  border border-dark-purple">
+                    <div className="flex items-center justify-center">
+                      <span className="font-medium uppercase">{index + 1}</span>
+                    </div>
+                  </td>
+                  <td className=" py-3 px-3 text-center  border border-dark-purple">
+                    <div className="flex items-center justify-center">
+                      <span className="font-medium uppercase">{about.aboutname}</span>
+                    </div>
+                  </td>
+                  
+                  <td className=" py-3 px-3 text-center  border border-dark-purple">
+                  <div className="flex item-center justify-center">
+                          <div>
+                            <Link
+                               to={`/survey/edit/${about.uuid}`}
+                            >
+                              <button className='flex items-center p-1 bg-green-600 text-white text-[1rem]'>
+                                <BiEdit />Edit
+                              </button>
+                            </Link>
+
+                          </div>
+                          <div className='ml-3'>
+
+                            <button
+                              className='flex items-center p-1 bg-red text-white text-[1rem]'
+                                onClick={() => handleOpen1Abb(about.uuid)}
                             >
                               <MdDeleteSweep size={20} />Delete
                             </button>

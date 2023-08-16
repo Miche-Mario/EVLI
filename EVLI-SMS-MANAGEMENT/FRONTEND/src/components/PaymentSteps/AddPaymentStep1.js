@@ -365,6 +365,21 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
 
 
                 </div>
+
+                <div className='flex flex-row items-center'>
+                  <h3 className="heading">Payment Status:</h3>
+                  <select id="countries" className="ml-3 3bg-gray-50 mb-4   text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5"
+                    required
+                    onChange={(e) => setPaymentmethodd(e.target.value)}
+                  >
+                    <option></option>
+                    {paymentmethod.map((pm, index) => (
+                      <option value={pm.id}>{pm.paymentname}</option>
+                    ))}
+                  </select>
+
+
+                </div>
                 <div className='flex justify-end'>
                   <button
 

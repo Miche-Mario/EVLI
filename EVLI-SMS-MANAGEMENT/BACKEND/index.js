@@ -42,6 +42,7 @@ import ProspectRoute from "./routes/ProspectsRoute.js";
 import ExpensesRoute from "./routes/ExpensesRoute.js"
 import ExpensesType from "./routes/ExpensesType.js";
 import LogRoute from "./routes/LogRoute.js"
+import PaymentStatusRoute from "./routes/PaymentStatusRoute.js"
 dotenv.config();
 
 const app = express();
@@ -105,6 +106,7 @@ app.use(ProspectRoute)
 app.use(ExpensesType)
 app.use(ExpensesRoute)
 app.use(LogRoute)
+app.use(PaymentStatusRoute)
 
 app.use(AccoDiscountRoute)
 

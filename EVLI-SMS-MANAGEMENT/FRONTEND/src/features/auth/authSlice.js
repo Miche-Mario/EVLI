@@ -11,7 +11,7 @@ const initialState = {
 
 export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI) => {
     try {
-        const response = await axios.post('http://192.168.11.150:5001/login', {
+        const response = await axios.post('http://localhost:5001/login', {
             username: user.username,
             password: user.password
         });
@@ -27,7 +27,7 @@ export const LoginUser = createAsyncThunk("user/LoginUser", async(user, thunkAPI
 
 export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
     try {
-        const response = await axios.get('http://192.168.11.150:5001/me');
+        const response = await axios.get('http://localhost:5001/me');
         return response.data;
     } catch (error) {
         if(error.response){
@@ -39,7 +39,7 @@ export const getMe = createAsyncThunk("user/getMe", async(_, thunkAPI) => {
 
 export const LogOut = createAsyncThunk("user/logout", async() => {
     
-    await axios.delete('http://192.168.11.150/logout');
+    await axios.delete('http://localhost/logout');
    
 
 })

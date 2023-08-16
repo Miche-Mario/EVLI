@@ -44,6 +44,27 @@ const Payment = db.define('payment', {
             notEmpty: false        
         }
     },
+    details:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate:{
+            notEmpty: false        
+        }
+    },
+    details:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate:{
+            notEmpty: false        
+        }
+    },
+    status:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate:{
+            notEmpty: false        
+        }
+    },
     timepayment:{
         type: DataTypes.JSON,
        

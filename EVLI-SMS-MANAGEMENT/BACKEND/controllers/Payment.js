@@ -13,7 +13,7 @@ import Log from "../models/LogModels.js";
 export const getPayment = async (req,res) => {
     try {
         const response = await Payment.findAndCountAll({
-            attributes: ['uuid', 'total','first', 'second','balance','timepayment', 'createdAt', 'updatedAt'],
+            attributes: ['uuid', 'total','first', 'second','balance','timepayment', 'details', 'status', 'createdAt', 'updatedAt'],
             include: [
                 {model: Students},
                 {model: Invoice},
@@ -28,7 +28,7 @@ export const getPayment = async (req,res) => {
 
 export const createPayment = async(req,res) => {  
     let invoice;
-    const {user, studentid, code, courselist, examlist, purchaselist, accolist, currency, totall, subtotal,registration, studdiscount,discount, otherlist } = req.body;
+    const {user, studentid, code, courselist, examlist, purchaselist, accolist, currency, totall, details, status, subtotal,registration, studdiscount,discount, otherlist } = req.body;
     try {
         invoice = await Invoice.create({
             courselist: courselist ,
@@ -145,7 +145,9 @@ discountt  &&
             student_studentid: studentid,
             invoice_invoiceid: invoice.id,
             paymth_paymtid: paymentmethod,
-            timepayment: timepayment
+            timepayment: timepayment,
+            details: details,
+            status: status
         });
 
 
@@ -167,7 +169,7 @@ export const getPaymentById = async(req,res) => {
 
     try {
         const response = await Payment.findOne({
-            attributes: ['uuid', 'total','first', 'second','balance','timepayment', 'createdAt'],
+            attributes: ['uuid', 'total','first', 'second','balance','timepayment', 'createdAt', 'details', 'status'],
             include: [
                 {model: Students},
                 {model: Invoice},
@@ -246,7 +248,7 @@ export const deleteLastPayment = async(req,res) => {
     const sum = paymentlist.reduce((accumulator, object) => {
         return accumulator + object.amount;
       }, 0);
-
+ 
     const length = paymentlist.length
     const newTimePayment = getPayment.timepayment.slice(0,-1)
   
