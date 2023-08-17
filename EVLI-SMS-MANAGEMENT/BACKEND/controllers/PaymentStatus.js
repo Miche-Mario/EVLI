@@ -16,7 +16,7 @@ export const getPaymentStatus = async (req,res) => {
 }
 export const getPaymentStatusById = async(req, res) => {
     try {
-        const response = await About.findOne({
+        const response = await PaymentStatus.findOne({
             attributes: ['uuid', 'status'],
             where: {
                 uuid: req.params.id
@@ -29,10 +29,10 @@ export const getPaymentStatusById = async(req, res) => {
 }
 4
 export const createPaymentStatus = async(req,res) => {
-    const {aboutname} = req.body;
+    const {status} = req.body;
     try {
-        await About.create({
-            aboutname: aboutname
+        await PaymentStatus.create({
+            status: status
         });
         res.status(201).json({msg: "Payment Status Successfully created"});
     } catch (error) {
@@ -48,11 +48,11 @@ export const updatePaymentStatus = async(req,res) => {
         }
     });
     if(!status) return res.status(404).json({msg: "Payment status doesn't not exist" });
-    const {statusname} = req.body;
+    const {statuss} = req.body;
     
     try {
         await PaymentStatus.update({
-            status: statusname
+            status: statuss
         }, {
             where: {
                 id: status.id
