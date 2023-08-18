@@ -172,7 +172,7 @@ export const createStudent = async(req,res) => {
                 }
             });
 /////////////////////////////////SAVE PAYMENT//////////////////////////////////////////////////////////////////////////
-            const {total, first, balance, invoiceid, paymentmethod, timepayment} = req.body;
+            const {total, first, balance, invoiceid, paymentmethod, timepayment, status} = req.body;
 
         await Payment.create({
             total: total,
@@ -181,7 +181,9 @@ export const createStudent = async(req,res) => {
             student_studentid: student.id,
             invoice_invoiceid: invoiceid,
             paymth_paymtid: paymentmethod,
-            timepayment: timepayment
+            timepayment: timepayment,
+            status: status
+            
         });
         
         ///////////////////////////////SAVE STUDENT COURSES DATA////////////////////////////

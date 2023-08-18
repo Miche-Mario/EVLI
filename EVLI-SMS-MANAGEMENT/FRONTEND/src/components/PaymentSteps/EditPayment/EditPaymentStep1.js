@@ -94,6 +94,10 @@ var formattedDate = dateOfMonth + "/" + month + "/" + year + " " + currentDate.t
 
 
 const [paymentmethodd, setPaymentmethodd] = useState('')
+const [paymentmethoddetails, setPaymentMethoddetails] = useState('')
+
+const [paymentStatus, setPaymentStatus] = useState('')
+
 
 const updatePayment = async (e) => {
   if(paymentmethodd ==="") {
@@ -108,7 +112,7 @@ const updatePayment = async (e) => {
       balance: balance - studentData.firstpayed,
       first: first + second,
       paying: studentData.firstpayed,
-      timepayment: [...timepayment, {date: formattedDate, amount: studentData.firstpayed}],
+      timepayment: [...timepayment, {date: formattedDate, amount: studentData.firstpayed, details:paymentmethoddetails}],
       user: user.id
     });
     toast.success("Payment Well Saved")
@@ -137,10 +141,21 @@ const updatePayment = async (e) => {
 
 
 
+  
+  const [paymentstatuss, setPaymentStatuss] = useState([]);
+
+  const getPaymentStatus = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/paymentstatuss`);
+    setPaymentStatuss(response.data)
+  }
+  
+  
 
  useEffect(() => {
   getPaymentMethods()
   getPayment()
+  getPaymentStatus();
+
  }, [])
 
 
@@ -296,7 +311,7 @@ const updatePayment = async (e) => {
                     {paymentdata &&
                         paymentdata.timepayment.map((timep, index) => (
                             <tr>
-                                <td colspan="3" className="text-right"> Amount Paid {index + 1}:<span className='ml-3 text-sm'>( {timep.date} )</span></td>
+                                <td colspan="3" className="text-right"> Amount Paid {index + 1}:<span className='ml-3 text-sm'>( {timep.date} ) -- {timep.details}</span></td>
                                 <td className='font-bold flex justify-center items-center'>
                                 {invoicedata && invoicedata.currency.lecurrency} {separator(timep.amount)}
                                 </td>
@@ -349,6 +364,21 @@ const updatePayment = async (e) => {
 
 
                 </div>
+
+                <div className='flex flex-row items-center'>
+                  <h3 className="heading w-[13rem]">Payment Mode details:</h3>
+                  <textarea rows={4} cols={6} type="text"  className="ml-3 3bg-gray-50 mb-4   text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-1"
+                    name='paymentmethoddetails'
+                    value={paymentmethoddetails}
+                    onChange={(e) => setPaymentMethoddetails(e.target.value)}
+                  >        </textarea>
+
+
+                </div>
+
+
+                
+          
                 <div className='flex justify-end'>
                   <button
 

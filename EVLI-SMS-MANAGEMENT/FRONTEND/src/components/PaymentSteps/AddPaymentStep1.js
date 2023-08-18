@@ -60,6 +60,10 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
   ////////////////////////////////////////////SAVE STUDENT DATA/////////////////////////////////////////////////////////:
 
   const [paymentmethodd, setPaymentmethodd] = useState('')
+  const [paymentmethoddetails, setPaymentMethoddetails] = useState('')
+
+  const [paymentStatus, setPaymentStatus] = useState('')
+
   var currentDate = new Date();
 
   var month = currentDate.getMonth() + 1;
@@ -72,8 +76,8 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
 
   const saveStudent = async (e) => {
     e.preventDefault();
-    if(paymentmethodd ==="") {
-      toast.error("Please insert a payment method")
+    if(paymentmethodd ==="" || paymentStatus ==="") {
+      toast.error("Please insert all payment info")
 
     } else {
       if ((studentData.firstpayed > invoicedata[0].total) || (studentData.firstpayed < 0)) {
@@ -136,8 +140,9 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
             invoiceid: invoicedata && invoicedata[0].id,
             code: invoicedata && invoicedata[0].studdiscount.lecode !== "" && invoicedata[0].studdiscount.lecode,
             paymentmethod: paymentmethodd,
-            timepayment: [{ date: formattedDate, amount: studentData.firstpayed !== 0 && studentData.firstpayed }],
+            timepayment: [{ date: formattedDate, amount: studentData.firstpayed !== 0 && studentData.firstpayed, details:  paymentmethoddetails}],
             courselist: invoicedata && invoicedata[0].courselist,
+           status: paymentStatus,
             user: user.id
           });
           setOpen(true)
@@ -151,6 +156,7 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
 
   }
 
+  console.log(paymentmethoddetails);
 
   /////////////////////////////////////////////////////////////GET PAYMENT METHOD/////////////////////////////////////
 
@@ -166,10 +172,21 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
   }
 
 
+  
+  const [paymentstatuss, setPaymentStatuss] = useState([]);
+
+  const getPaymentStatus = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/paymentstatuss`);
+    setPaymentStatuss(response.data)
+  }
+
+
 
 
   useEffect(() => {
-    getPaymentMethods()
+    getPaymentMethods();
+
+    getPaymentStatus();
   }, [])
 
 
@@ -352,7 +369,7 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
                 </table>
                 <br />
                 <div className='flex flex-row items-center'>
-                  <h3 className="heading">Payment Mode:</h3>
+                  <h3 className="heading  w-[13rem]">Payment Mode:</h3>
                   <select id="countries" className="ml-3 3bg-gray-50 mb-4   text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5"
                     required
                     onChange={(e) => setPaymentmethodd(e.target.value)}
@@ -366,15 +383,36 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
 
                 </div>
 
+
+
+
+
                 <div className='flex flex-row items-center'>
-                  <h3 className="heading">Payment Status:</h3>
+                  <h3 className="heading w-[13rem]">Payment Mode details:</h3>
+                  <textarea rows={4} cols={6} type="text"  className="ml-3 3bg-gray-50 mb-4   text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-1"
+                    name='paymentmethoddetails'
+                    value={paymentmethoddetails}
+                    onChange={(e) => setPaymentMethoddetails(e.target.value)}
+                  >        </textarea>
+
+
+                </div>
+
+
+
+
+
+
+                <div className='flex flex-row items-center'>
+                  <h3 className="heading  w-[13rem]">Payment Status:</h3>
                   <select id="countries" className="ml-3 3bg-gray-50 mb-4   text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5"
                     required
-                    onChange={(e) => setPaymentmethodd(e.target.value)}
+                    
+                    onChange={(e) => setPaymentStatus(e.target.value)}
                   >
                     <option></option>
-                    {paymentmethod.map((pm, index) => (
-                      <option value={pm.id}>{pm.paymentname}</option>
+                    {paymentstatuss.map((pm, index) => (
+                      <option value={pm.id}>{pm.status}</option>
                     ))}
                   </select>
 

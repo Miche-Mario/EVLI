@@ -4,6 +4,7 @@ import db from '../config/Database.js';
 import Invoice from "./InvoiceModels.js";
 import PaymentMethods from "./PaymentMethodModels.js";
 import Students from "./StudentsModels.js";
+import PaymentStatus from "./PaymentStatusModels.js";
 
 const  {DataTypes} = Sequelize;
 
@@ -51,20 +52,8 @@ const Payment = db.define('payment', {
             notEmpty: false        
         }
     },
-    details:{
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate:{
-            notEmpty: false        
-        }
-    },
-    status:{
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate:{
-            notEmpty: false        
-        }
-    },
+    
+   
     timepayment:{
         type: DataTypes.JSON,
        
@@ -79,6 +68,6 @@ Payment.belongsTo(Invoice, {foreignKey: 'invoice_invoiceid'});
 
 Payment.belongsTo(PaymentMethods, {foreignKey: 'paymth_paymtid'});
 
-
+Payment.belongsTo(PaymentStatus, {foreignKey: 'status'});
 
 export default Payment

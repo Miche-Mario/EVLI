@@ -43,6 +43,10 @@ const PaymentByStudentId = ({ handleClick }) => {
 
 
 const [paymentmethodd, setPaymentmethodd] = useState('')
+const [paymentmethoddetails, setPaymentMethoddetails] = useState('')
+
+const [paymentStatus, setPaymentStatus] = useState('')
+
 var currentDate = new Date();
 
 var month = currentDate.getMonth()+1;
@@ -100,7 +104,7 @@ console.log(formattedDate);
       studentid: student && student.id,
       code: studentData &&  studentData.studdiscount.lecode !== "" && studentData.studdiscount.lecode,
       paymentmethod: paymentmethodd,
-      timepayment: [{date : formattedDate, amount:  studentData.firstpayed !== 0 && studentData.firstpayed}],
+      timepayment: [{date : formattedDate, amount:  studentData.firstpayed !== 0 && studentData.firstpayed,details: paymentmethoddetails}],
       user: user.id
     });
     handleClick('next')
@@ -116,6 +120,22 @@ console.log(formattedDate);
 }
 
 
+
+  
+const [paymentstatuss, setPaymentStatuss] = useState([]);
+
+const getPaymentStatus = async () => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/paymentstatuss`);
+  setPaymentStatuss(response.data)
+}
+
+
+
+
+useEffect(() => {
+
+  getPaymentStatus();
+}, [])
 
 
   /////////////////////////////////////////////////////////////
@@ -293,6 +313,24 @@ console.log(formattedDate);
 
 
                 </div>
+
+                <div className='flex flex-row items-center'>
+                  <h3 className="heading w-[13rem]">Payment Mode details:</h3>
+                  <textarea rows={4} cols={6} type="text"  className="ml-3 3bg-gray-50 mb-4   text-gray-900 text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[15rem] p-1"
+                    name='paymentmethoddetails'
+                    value={paymentmethoddetails}
+                    onChange={(e) => setPaymentMethoddetails(e.target.value)}
+                  >        </textarea>
+
+
+                </div>
+
+
+
+
+
+
+             
                 <div className='flex justify-end'>
                   <button
                   

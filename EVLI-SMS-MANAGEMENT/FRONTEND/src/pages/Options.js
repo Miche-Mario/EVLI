@@ -166,6 +166,45 @@ const handleClose1Ab = () => {
   setOpen1Ab(false);
 };
 ///////////////////////////////////////////////////////////
+
+
+  ////////////////////////  CURRENCY  ///////////////////////////////////////////////////////////////////////
+  const [paymentstatus, setPaymentStatus] = useState([]);
+
+  const getPaymentStatus = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/paymentstatuss`);
+    setPaymentStatus(response.data)
+  }
+
+  
+  const deletePaymentStatus = async (userId) => {
+    await axios.delete(`${process.env.REACT_APP_BASE_URL}/paymentstatus/${userId}`);
+    getPaymentStatus();
+    navigate(0);
+  }
+
+  const [status, setStatus] = useState("");
+
+
+
+  const savePaymentStatus = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${process.env.REACT_APP_BASE_URL}/paymentstatus`, {
+        status: status,
+       
+      });
+      navigate(0);
+    } catch (error) {
+      if (error.response) {
+        setMsg(error.response.data.msg);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getPaymentStatus();
+  }, [])
 const [openAbb, setOpenAbb] = useState(false);
 const handleOpenAbb = () => {
   setOpenAbb(true);
@@ -492,23 +531,23 @@ const handleClose1Abb = () => {
 
   {/* //  ////////////////////////////////////////////////ABOUT MODAL/////////////////////////////////////////////////////////////////////// */}
    <Modal
-        open={openAb}
+        open={openAbb}
         onClose={handleCloseAbb}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} >
-          <p class="text-white text-xl p-3  bg-dark-purple w-full">SURVEY DETAILS</p>
-          <form onSubmit={saveAbout}>
+          <p class="text-white text-xl p-3  bg-dark-purple w-full">Payment Status</p>
+          <form onSubmit={savePaymentStatus}>
             <div className='flex flex-row m-3 justify-around items-center'>
               <div className=''>
-                <label for="languagename" class="block mb-6 text-base font-medium text-gray-900 p-1">Survey Title</label>           
+                <label for="languagename" class="block mb-6 text-base font-medium text-gray-900 p-1">Status</label>           
               </div>
               <div >
               <input type="text" id="languagename" class="bg-gray-50 border mb-4 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-1.5 " 
                 placeholder="name" 
-                value={aboutname}
-                onChange={(e) => setAboutname(e.target.value)}  
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}  
               />
              
               </div>
@@ -530,7 +569,7 @@ const handleClose1Abb = () => {
 
       
       <Modal
-        open={open1Ab}
+        open={open1Abb}
         onClose={handleClose1Abb}
       >
         <Box sx={style}>
@@ -538,7 +577,7 @@ const handleClose1Abb = () => {
             <div className='text-center text-xl font-medium'>Would you really delete ?</div>
             <div className='flex items-center justify-center mt-3 mb-3'>
               <button className='bg-blue-600 rounded text-gray-100 ml-5 font-medium w-20 h-10 flex items-center justify-center'
-                onClick={() => deleteAbout(vaAbb)}
+                onClick={() => deletePaymentStatus(vaAbb)}
               >
                 Delete
               </button>
@@ -553,7 +592,7 @@ const handleClose1Abb = () => {
       <div className='w-5/12 h-4/12 ml-3 shadow-xl p-3'>
         <div className='m-3'>
         <div>
-          <legend className='p-1 ml-3 text-xl text-blue-700'>Survey</legend>
+          <legend className='p-1 ml-3 text-xl text-blue-700'>Payment Status</legend>
             <div className='flex'>
             <button onClick={handleOpenAbb} className='bg-blue-600 rounded ml-3 text-gray-100 font-medium w-48 h-10 p-3 flex items-center justify-center' type="submit" name='Add'>
               Add
@@ -564,13 +603,13 @@ const handleClose1Abb = () => {
               <thead>
                 <tr className=" border border-dark-purple bg-gray-200  text-gray-600 uppercase text-sm leading-normal">
                   <th className=" border border-dark-purple py-3 px-3 text-center">N</th>
-                  <th className=" border border-dark-purple py-3 px-3 text-center">Survey name</th>
+                  <th className=" border border-dark-purple py-3 px-3 text-center">Status</th>
                   <th className=" border border-dark-purple py-3 px-3 text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600  text-sm font-light">
-                {abouts.map((about, index) => ( 
-                <tr key={currency.uuid} className=" border-gray-400  hover:bg-gray-100 border-b-2">
+                {paymentstatus.map((status, index) => ( 
+                <tr key={status.uuid} className=" border-gray-400  hover:bg-gray-100 border-b-2">
                   <td className="p-0  border border-dark-purple">
                     <div className="flex items-center justify-center">
                       <span className="font-medium uppercase">{index + 1}</span>
@@ -578,7 +617,7 @@ const handleClose1Abb = () => {
                   </td>
                   <td className=" py-3 px-3 text-center  border border-dark-purple">
                     <div className="flex items-center justify-center">
-                      <span className="font-medium uppercase">{about.aboutname}</span>
+                      <span className="font-medium uppercase">{status.status}</span>
                     </div>
                   </td>
                   
@@ -586,7 +625,7 @@ const handleClose1Abb = () => {
                   <div className="flex item-center justify-center">
                           <div>
                             <Link
-                               to={`/survey/edit/${about.uuid}`}
+                               to={`/paymentstatus/edit/${status.uuid}`}
                             >
                               <button className='flex items-center p-1 bg-green-600 text-white text-[1rem]'>
                                 <BiEdit />Edit
@@ -598,7 +637,7 @@ const handleClose1Abb = () => {
 
                             <button
                               className='flex items-center p-1 bg-red text-white text-[1rem]'
-                                onClick={() => handleOpen1Abb(about.uuid)}
+                                onClick={() => handleOpen1Abb(status.uuid)}
                             >
                               <MdDeleteSweep size={20} />Delete
                             </button>

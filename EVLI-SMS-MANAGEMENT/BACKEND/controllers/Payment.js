@@ -9,16 +9,16 @@ import PaymentMethods from "../models/PaymentMethodModels.js";
 import Discount from "../models/DiscountModels.js";
 import StudentsCourses from "../models/StudentsCoursesModels.js";
 import Log from "../models/LogModels.js";
+import PaymentStatus from "../models/PaymentStatusModels.js";
 
 export const getPayment = async (req,res) => {
     try {
         const response = await Payment.findAndCountAll({
-            attributes: ['uuid', 'total','first', 'second','balance','timepayment', 'details', 'status', 'createdAt', 'updatedAt'],
+            attributes: ['uuid', 'total','first', 'second','balance','timepayment','status', 'createdAt', 'updatedAt'],
             include: [
                 {model: Students},
                 {model: Invoice},
-                {model: PaymentMethods}
-            ]
+                {model: PaymentMethods}            ]
         });
         res.status(200).json(response);
     } catch (error) {
@@ -28,7 +28,7 @@ export const getPayment = async (req,res) => {
 
 export const createPayment = async(req,res) => {  
     let invoice;
-    const {user, studentid, code, courselist, examlist, purchaselist, accolist, currency, totall, details, status, subtotal,registration, studdiscount,discount, otherlist } = req.body;
+    const {user, studentid, code, courselist, examlist, purchaselist, accolist, currency, totall, subtotal,registration, studdiscount,discount, otherlist } = req.body;
     try {
         invoice = await Invoice.create({
             courselist: courselist ,
@@ -146,8 +146,7 @@ discountt  &&
             invoice_invoiceid: invoice.id,
             paymth_paymtid: paymentmethod,
             timepayment: timepayment,
-            details: details,
-            status: status
+           
         });
 
 
@@ -169,11 +168,13 @@ export const getPaymentById = async(req,res) => {
 
     try {
         const response = await Payment.findOne({
-            attributes: ['uuid', 'total','first', 'second','balance','timepayment', 'createdAt', 'details', 'status'],
+            attributes: ['uuid', 'total','first', 'second','balance','timepayment', 'createdAt',  'status'],
             include: [
                 {model: Students},
                 {model: Invoice},
-                {model: PaymentMethods}
+                {model: PaymentMethods},
+                {model: PaymentStatus}
+
             ],
             where: {
                 uuid: req.params.id
