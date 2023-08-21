@@ -15,7 +15,9 @@ const StudentPayment = () => {
 
     const style2 = {
   position: 'absolute',
-  top: '30%',
+  margin: 20,
+  width: "800px",
+    top: '30%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
@@ -139,6 +141,32 @@ const StudentPayment = () => {
       }
 
 
+
+      
+
+      ////////////////////DELETE PAYMENT TO PAYED///////////////////
+      //const [va, setVa] = useState("");
+      const [open1a, setOpen1a] = useState(false);
+
+
+      const handleOpen1a = (uuid) => {
+        setOpen1a(true);
+        setVa(uuid)
+      };
+      const handleClose1a = () => {
+        setOpen1a(false);
+      };
+
+      const UpdatePaymenttoPayed = async (userId) => {
+        await axios.patch(`${process.env.REACT_APP_BASE_URL}/updatepaymenttopayed/${userId}`, {
+          status: 2
+        });
+        getPayment();
+        navigate(0);
+      }
+
+
+
     return (
         <Layout>
                <Modal
@@ -162,6 +190,31 @@ const StudentPayment = () => {
 
         </Box>
       </Modal>
+
+
+      <Modal
+        open={open1a}
+        onClose={handleClose1a}
+      >
+        <Box sx={style2}>
+          <div className='items-center p-3 '>
+            <div className='text-center text-xl font-medium'>Please this payment is pending. <br/><span className=' text-red font-bold text-xl'> Confirm it is Payed before you can add new payment!</span></div>
+            <div className='flex items-center justify-center mt-8 mb-3'>
+          
+              <button onClick={handleClose1a} className='bg-blue-600 rounded ml-5 text-gray-100 font-medium w-32 h-12 p-4 flex items-center justify-center'>
+                Cancel
+              </button>
+              <button className='bg-green-600 rounded text-white ml-5 font-medium w-29 p-4 h-12 flex items-center justify-center'
+                onClick={() => UpdatePaymenttoPayed(va)}
+              >
+                Payment Payed
+              </button>
+            </div>
+          </div>
+
+        </Box>
+      </Modal>
+
 
 <Modal
         open={open}
@@ -437,7 +490,7 @@ const StudentPayment = () => {
                                                                 </svg>
                                                             </div>
                                                       
-                                                            { pay.balance !== 0 && <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                                            { pay.balance !== 0 && pay.status !== 1 ? <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                                 <NavLink to={`/editpayment/${pay.uuid}`}>
                                                                     <a>
                                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -445,7 +498,23 @@ const StudentPayment = () => {
                                                                         </svg>
                                                                     </a>
                                                                 </NavLink>
-                                                            </div>}
+                                                            </div>
+                                                            
+                                                          :
+
+                                                          <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                                                            onClick={() => handleOpen1a(pay.uuid)}
+                                                          >
+                                                                <div>
+                                                                    <a>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                                        </svg>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                          
+                                                          }
                                                              <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
                                                                  onClick={() => handleOpen1(pay.uuid)}
                                                             >
