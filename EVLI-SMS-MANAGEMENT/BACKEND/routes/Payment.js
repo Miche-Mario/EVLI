@@ -3,6 +3,7 @@ import {
   getPayment,
   getPaymentById,
   updatePayment,
+  updatePaymentStatus,
   createPayment,
   deleteLastPayment
 } from "../controllers/Payment.js"
@@ -14,6 +15,7 @@ router.get('/payment',verifyUser,adminAndSuperOnly, getPayment);
 router.post('/createpayment',verifyUser,adminAndSuperOnly, createPayment)
 router.get('/paymentbyid/:id',verifyUser,adminAndSuperOnly, getPaymentById);
 router.patch('/payment/:id',verifyUser,adminAndSuperOnly, updatePayment);
+router.patch('/updatepaymenttopayed/:id',verifyUser,adminAndSuperOnly, updatePaymentStatus);
 router.patch('/paymentt/:id',verifyUser,adminAndSuperOnly, deleteLastPayment);
 
 

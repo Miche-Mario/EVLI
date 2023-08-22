@@ -198,7 +198,7 @@ const StudentPayment = () => {
       >
         <Box sx={style2}>
           <div className='items-center p-3 '>
-            <div className='text-center text-xl font-medium'>Please this payment is pending. <br/><span className=' text-red font-bold text-xl'> Confirm it is Payed before you can add new payment!</span></div>
+            <div className='text-center text-xl font-medium'>Please this payment is pending. <br/><span className=' text-red font-bold text-xl'> Confirm it has been payed before you can add new payment!</span></div>
             <div className='flex items-center justify-center mt-8 mb-3'>
           
               <button onClick={handleClose1a} className='bg-blue-600 rounded ml-5 text-gray-100 font-medium w-32 h-12 p-4 flex items-center justify-center'>
@@ -326,7 +326,7 @@ const StudentPayment = () => {
                     {code.invoice &&
                         code.timepayment.map((timep, index) => (
                             <tr>
-                                <td colspan="3" className="text-right"> Amount Paid {index + 1}:<span className='ml-3 text-sm'>( {timep.date} )</span></td>
+                                <td colspan="3" className="text-right"> Amount Paid {index + 1}:<span className='ml-3 text-sm'>( {timep.date} -- {timep.details && timep.details} )</span></td>
                                 <td className='font-bold flex justify-center items-center'>
                                 {code.invoice && code.invoice.currency.lecurrency && code.invoice.currency.lecurrency} {separator(timep.amount)}
                                 </td>

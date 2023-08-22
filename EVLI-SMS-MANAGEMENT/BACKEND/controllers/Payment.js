@@ -232,6 +232,47 @@ export const updatePayment = async(req,res) => {
 }
 
 
+export const updatePaymentStatus = async(req,res) => {
+    const { user} = req.body;
+
+    const pay = await Payment.findOne({
+        where: {
+            uuid: req.params.id
+        }
+    });
+    const info = pay
+
+    if(!pay) return res.status(404).json({msg: "Payment doesn't not exist" });
+    const {status} = req.body;
+    
+    try {
+        await Payment.update({
+            status: status,
+        }, {
+            where: {
+                id: pay.id
+            }
+        });
+      
+
+        const stud = await Students.findOne({
+            where: {
+                id: info.student_studentid
+            }
+        });
+
+        await Log.create({
+            info: ` Payement confirmed from "Pending - Student: ${stud.surnameg}  ${stud.forenamesg } `,
+            user_userid: user
+        });
+
+        res.status(200).json({msg: "Payment  updated"});
+    } catch (error) {
+        res.status(400).json({msg: error.message})
+    }
+}
+
+
 
 export const deleteLastPayment = async(req,res) => {
     const { user} = req.body;
