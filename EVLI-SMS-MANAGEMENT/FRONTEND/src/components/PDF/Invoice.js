@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
 
 
 const Invoice = (props) => {
-    const { courseList, examList, purchaseList, accoList, otherFeeList, total, subtotal, registrationList, currency, studdiscount, surnameg, addresshomeg, forenamesg, passportidg, citizenshipg } = props.studentData
+    const { courseList, examList, purchaseList, accoList, otherFeeList, total, subtotal, registrationList, currency, studdiscount, surnameg, addresshomeg, forenamesg, passportidg, citizenshipg, discount } = props.studentData
 
 
     function separator(numb) {
@@ -107,7 +107,7 @@ const Invoice = (props) => {
                                 {examList.length > 0 && examList[0].examdescription}
 
                                 {((courseList.length > 0 || examList.length > 0) && accoList.length > 0)&& " WITH "}
-                                {accoList.length > 0 && accoList[0].acotimes + " MONTHS ACCOMODATION"}
+                                {accoList.length > 0 && accoList[0].acotimes + " MONTHS ACCOMMODATION"}
 
                                 </Text>
                             </Text>
@@ -290,7 +290,7 @@ const Invoice = (props) => {
                                     <Text >{currency.lecurrency} {separator(subtotal)}</Text>
                                 </View>
                                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: "#AED8E6", paddingTop: 5, paddingBottom: 5, width: 115 }}>
-                                    <Text>{studdiscount.groupdiscount && courseList.length >= 1 ? (courseList.length - 1) * studdiscount.groupdiscount : "0,00"}%</Text>
+                                    <Text>{studdiscount.groupdiscount && courseList.length >= 1 ? currency.lecurrency + " "+ discount : "0,00"}</Text>
                                 </View>
                                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: "#03BFFF", paddingTop: 5, paddingBottom: 5, width: 115 }}>
                                     <Text>{currency.lecurrency} 0.00</Text>

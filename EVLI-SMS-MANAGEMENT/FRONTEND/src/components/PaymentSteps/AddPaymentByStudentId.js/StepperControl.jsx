@@ -45,7 +45,7 @@ const StepperControl = ({handleClick, currentStep, steps, click, open, clickk}) 
           rounded-xl font-semibold cursor-pointer  
           hover:bg-green-600 hover:text-white transition duration-200 ease-in-out block`} 
         >
-            Revenir
+            Go back
         </button>}
     </div>
   )

@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get('/payment',verifyUser,adminAndSuperOnly, getPayment);
 router.post('/createpayment',verifyUser,adminAndSuperOnly, createPayment)
-router.get('/paymentbyid/:id',verifyUser,adminAndSuperOnly, getPaymentById);
+router.get('/paymentbyid/:id', getPaymentById);
 router.patch('/payment/:id',verifyUser,adminAndSuperOnly, updatePayment);
 router.patch('/updatepaymenttopayed/:id',verifyUser,adminAndSuperOnly, updatePaymentStatus);
 router.patch('/paymentt/:id',verifyUser,adminAndSuperOnly, deleteLastPayment);

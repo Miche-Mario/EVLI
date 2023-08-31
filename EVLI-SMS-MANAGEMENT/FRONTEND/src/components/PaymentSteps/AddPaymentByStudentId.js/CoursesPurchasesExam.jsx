@@ -1137,7 +1137,7 @@ console.log(optionid)
         </div>}
 
         {view && <div className='m-5'>
-          <p className='text-lg font-medium text-gray-600 '>Accomodation</p>
+          <p className='text-lg font-medium text-gray-600 '>Accommodation</p>
           <div className='flex flex-row items-center'>
             <div>
               <select class="bg-blue-100 border border-gray-300 text-gray-900 text-xl p-2 

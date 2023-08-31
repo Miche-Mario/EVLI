@@ -6,6 +6,7 @@
     "@craco/craco": "^6.4.5",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@lottiefiles/react-lottie-player": "^3.5.3",
     "@mui/material": "^5.9.2",
     "@react-pdf/renderer": "^3.0.0",
     "@reduxjs/toolkit": "^1.8.3",
@@ -35,7 +36,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start" :"set PORT=3006 && craco start",
+    "start": "set PORT=3006 && craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"

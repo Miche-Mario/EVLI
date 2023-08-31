@@ -76,7 +76,7 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
 
   const saveStudent = async (e) => {
     e.preventDefault();
-    if(paymentmethodd ==="" || paymentStatus ==="") {
+    if(paymentmethodd ==="" || studentData.paymentstatus  ==="") {
       toast.error("Please insert all payment info")
 
     } else {
@@ -142,7 +142,7 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
             paymentmethod: paymentmethodd,
             timepayment: [{ date: formattedDate, amount: studentData.firstpayed !== 0 && studentData.firstpayed, details:  paymentmethoddetails}],
             courselist: invoicedata && invoicedata[0].courselist,
-           status: paymentStatus,
+           status: studentData.paymentstatus && studentData.paymentstatus,
             user: user.id
           });
           setOpen(true)
@@ -198,6 +198,7 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
     str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return str.join(".");
   }
+
 
   return (
 
@@ -407,9 +408,9 @@ const AddPaymentStep1 = ({ open, setOpen }) => {
                   <h3 className="heading  w-[13rem]">Payment Status:</h3>
                   <select id="countries" className="ml-3 3bg-gray-50 mb-4   text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2.5"
                     required
-                    
-                    onChange={(e) => setPaymentStatus(e.target.value)}
-                  >
+                    onChange={handleChange}
+                    name="paymentstatus"
+                    value={studentData["paymentstatus"] || ""}                  >
                     <option></option>
                     {paymentstatuss.map((pm, index) => (
                       <option value={pm.id}>{pm.status}</option>

@@ -50,6 +50,7 @@ import EditExpenses from './pages/EditExpenses';
 import Logs from './pages/Logs';
 import EditAccoDiscount from './pages/EditAccoDiscount';
 import EditPaymentStatus from './pages/EditPaymentStatus';
+import GetReceipt from './GetReceipt/GetReceipt';
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -109,6 +110,8 @@ function App() {
 
             <Route path='/expensestype' element={<ExpensesType/>}/>
             <Route path='/expensetype/edit/:id' element={<EditExpensesType/>}/>
+            <Route path='/studentpayment/getreceipt/:id' element={<GetReceipt/>}/>
+
             <Route path='/expenses/edit/:id' element={<EditExpenses/>}/>
 
 

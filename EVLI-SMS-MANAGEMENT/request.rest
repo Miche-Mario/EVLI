@@ -62,7 +62,7 @@ DELETE  http://localhost:5000/logout
 
 ###
 // get All Students
-GET http://localhost:5000/students
+GET http://localhost:500/paymentid/d52df52c-00ee-4ca8-baf9-96dd19a032dc
 
 ###
 

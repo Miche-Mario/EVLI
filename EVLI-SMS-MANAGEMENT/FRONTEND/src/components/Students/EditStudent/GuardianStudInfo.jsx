@@ -106,7 +106,9 @@ const GuardianStudInfo = () => {
       },{   
         headers: { "Content-Type": "multipart/form-data" } 
 });
-toast.success("Payment Well Saved")
+toast.success("Student data updated")
+
+navigate("/students")
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);

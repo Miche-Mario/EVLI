@@ -14,7 +14,7 @@ export const getProspects = async (req,res) => {
             include: [{
                 model: About
             }],
-            where: { isstudent: true },
+            where: { isstudent: false },
         });
         res.status(200).json(response);
     } catch (error) {
